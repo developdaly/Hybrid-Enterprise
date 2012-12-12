@@ -11,6 +11,8 @@ define( 'DB_USER',			'local_db_user' );
 define( 'DB_PASSWORD',		'local_db_password' );
 define( 'DB_HOST',			'localhost' ); // Probably 'localhost'
 
+define( 'ENV_DOMAIN',		'dev.example.local' );
+
 /**
  * Custom content directory
  * 
