@@ -13,6 +13,7 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 	define( 'DB_HOST',				'localhost' ); // Probably 'localhost'
 	
 	define( 'ENV_DOMAIN',			'example.com' );
+	define( 'PRODUCTION_DOMAIN',	'example.com' );
 	define( 'DOMAIN_CURRENT_SITE',	ENV_DOMAIN );
 	define( 'WP_HOME',				'http://'. ENV_DOMAIN );
 	define( 'WP_SITEURL',			'http://'. ENV_DOMAIN .'/wp' );

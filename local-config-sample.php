@@ -23,6 +23,7 @@ define( 'DB_HOST',			'localhost' ); // Probably 'localhost'
  * @link http://codex.wordpress.org/Editing_wp-config.php
  */
 define( 'ENV_DOMAIN',			'dev.example.com' );
+define( 'PRODUCTION_DOMAIN',	'example.com' );
 define( 'DOMAIN_CURRENT_SITE',	ENV_DOMAIN );
 define( 'WP_HOME',				'http://'. ENV_DOMAIN );
 define( 'WP_SITEURL',			'http://'. ENV_DOMAIN .'/wp' );
