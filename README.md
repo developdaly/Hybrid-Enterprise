@@ -1,30 +1,43 @@
 # WordPress Skeleton
 
-This is simply a skeleton repo for a WordPress site. Use it to jump-start your WordPress site repos, or fork it and customize it to your own liking!
+Based on [Mark Jaquith's WordPress Skeleton](https://github.com/markjaquith/WordPress-Skeleton), this repository can be used to quickly setup a new WordPress installation. What sets it apart is the ability to reuse it among all of your local/development/staging/production environments AND share databases between them.
 
-## Assumptions
+Checkout [WordPress Skeleton's](https://github.com/markjaquith/WordPress-Skeleton) documentation for a brief overview.
 
-* WordPress as a Git submodule in `/wp/`
-* Custom content directory in `/content/` (cleaner, and also because it can't be in `/wp/`)
-* `wp-config.php` in the root (because it can't be in `/wp/`)
-* All writable directories are symlinked to similarly named locations under `/shared/`.
+## Why? And how I use this.
 
-## Questions & Answers
+One of the things I continually try to perfect is my development environment. I see an ideal process like so:
 
-**Q:** Will you accept pull requests?  
-**A:** Maybe — if I think the change is useful. I primarily made this for my own use, and thought people might find it useful. If you want to take it in a different direction and make your own customized skeleton, then just maintain your own fork.
+1. Develop locally
+2. Commit to source control
+3. Automatic deployment to a staging environment
+4. Manual deployment to production
 
-**Q:** Why the `/shared/` symlink stuff for uploads?  
-**A:** For local development, create `/shared/` (it is ignored by Git), and have the files live there. For production, have your deploy script (Capistrano is my choice) look for symlinks pointing to `/shared/` and repoint them to some outside-the-repo location (like an NFS shared directory or something). This gives you separation between Git-managed code and uploaded files.
+This repository doesn't deal with the deployment process, but it makes it possible. Starting with this framework you can see one code-base all the way through from local to production. Let me reiterate that this includes your ENTIRE site ... WordPress and its plugins, themes, configuration, etc.
 
-**Q:** What version of WordPress does this track?  
-**A:** The latest stable release. Send a pull request if I fall behind.
+## `wp-config.php`
 
-**Q:** What's the deal with `local-config.php`?  
-**A:** It is for local development, which might have different MySQL credentials or do things like enable query saving or debug mode. This file is ignored by Git, so it doesn't accidentally get checked in. If the file does not exist (which it shouldn't, in production), then WordPress will used the DB credentials defined in `wp-config.php`.
+Since part of the reason for this repository is for WordPress to reside in a subdirectory, `wp-config.php` is one directory above `wp`.
 
-**Q:** What is `memcached.php`?  
-**A:** This is for people using memcached as an object cache backend. It should be something like: `<?php return array( "server01:11211", "server02:11211" ); ?>`. Programattic generation of this file is recommended.
+Among the standard sort of things you expect there's a few things introduced here.
 
-**Q:** Does this support WordPress in multisite mode?  
-**A:** It will, starting with WordPress 3.5 (due out in December, 2012). Earlier versions of WordPress don't support Multisite when WordPress is in a subdirectory.
+``` php
+define( 'ENV_DOMAIN',			'example.com' );
+define( 'PRODUCTION_DOMAIN',	'example.com' );
+define( 'DOMAIN_CURRENT_SITE',	ENV_DOMAIN );
+define( 'WP_HOME',				'http://'. ENV_DOMAIN );
+define( 'WP_SITEURL',			'http://'. ENV_DOMAIN .'/wp' );
+```
+
+* `ENV_DOMAIN` &mdash; *required* &mdash; The domain, such as `example.com` represents the current environment domain you want to use. In `wp-config.php` this definition would be the production domain.
+* `PRODUCTION_DOMAIN` &mdash; *optional* &mdash; This definition is optional *unless you are using multisite* and is used to switch the host, enabling one environment to work with a database configured for a different domain.
+
+* `DOMAIN_CURRENT_SITE` &mdash; *optional* &mdash; This definition is optional *unless you are using multisite*.
+* `WP_HOME` &mdash; *optional* &mdash; This is already set in your database, but can be overridden here.
+* `WP_SITEURL` &mdash; *optional* &mdash; This is already set in your database, but can be overridden here.
+
+## `local-config.php`
+
+The point here is to use this file to override settings in `wp-config.php`. You'll want to use this in all environments other than production.
+
+The same definitions from above *must* be defined in your `local-config.php` if that file exists.
