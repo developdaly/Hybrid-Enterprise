@@ -7,10 +7,16 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 	include( dirname( __FILE__ ) . '/local-config.php' );
 } else {
 	define( 'WP_LOCAL_DEV', false );
-	define( 'DB_NAME', '%%DB_NAME%%' );
-	define( 'DB_USER', '%%DB_USER%%' );
-	define( 'DB_PASSWORD', '%%DB_PASSWORD%%' );
-	define( 'DB_HOST', '%%DB_HOST%%' ); // Probably 'localhost'
+	define( 'DB_NAME',				'local_db_name' );
+	define( 'DB_USER',				'local_db_user' );
+	define( 'DB_PASSWORD',			'local_db_password' );
+	define( 'DB_HOST',				'localhost' ); // Probably 'localhost'
+	
+	define( 'ENV_DOMAIN',			'example.com' );
+	define( 'DOMAIN_CURRENT_SITE',	ENV_DOMAIN );
+	define( 'WP_HOME',				'http://'. ENV_DOMAIN );
+	define( 'WP_SITEURL',			'http://'. ENV_DOMAIN .'/wp' );
+	
 }
 
 // ========================
@@ -18,6 +24,18 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 // ========================
 define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/content' );
 define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content' );
+
+// =========
+/* Multisite
+define( 'PRODUCTION_DOMAIN', 'example.com' );
+define( 'WP_ALLOW_MULTISITE', true );
+define( 'MULTISITE', true );
+define( 'SUBDOMAIN_INSTALL', true );
+define( 'PATH_CURRENT_SITE', '/' );
+define( 'SITE_ID_CURRENT_SITE', 1 );
+define( 'BLOG_ID_CURRENT_SITE', 1 );
+define( 'SUNRISE', 'on' );
+*/
 
 // ================================================
 // You almost certainly do not want to change these

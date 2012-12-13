@@ -21,10 +21,15 @@ class WP_Environment_Domain_Plugin extends WP_Stack_Plugin {
 		$this->hook( 'option_home', 'replace_domain' );
 		$this->hook( 'option_siteurl', 'replace_domain' );
 	}
-
+	
 	public function replace_domain ( $url ) {
 		$current_domain = parse_url( $url, PHP_URL_HOST );
-		$url = str_replace( '//' . $current_domain, '//' . ENV_DOMAIN, $url );
+		if( function_exists('is_subdomain_install') && is_subdomain_install() ) {
+			$replacement_domain = getSubDomain( $_SERVER['HTTP_HOST'] ) . ENV_DOMAIN;
+		} else {
+			$replacement_domain = ENV_DOMAIN;
+		}
+		$url = str_replace( '//' . $current_domain, '//' . $replacement_domain, $url );
 		return $url;
 	}
 }

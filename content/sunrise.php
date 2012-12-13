@@ -1,5 +1,20 @@
 <?php
 
+if( !defined( 'PRODUCTION_DOMAIN' ) )
+	die( 'You must define PRODUCTION_DOMAIN' );
+
+if (isset($_SERVER['HTTP_HOST'])) {
+	$host = $_SERVER['HTTP_HOST'];
+} elseif (isset($_SERVER['SERVER_NAME'])) {
+	$host = $_SERVER['SERVER_NAME'];
+}
+
+/**
+ * This parses a domain and returns its first subdomain,
+ * returning false if the given domain matches the environment
+ * domain. This is because we don't want the subdomain of the 
+ * environment domain if it already includes a subdomain.
+ */
 function getSubDomain ($domain) {
     if( $domain == ENV_DOMAIN )
     	return;
@@ -8,14 +23,9 @@ function getSubDomain ($domain) {
     return $eDom[0] .'.';
 }
 
-if (isset($_SERVER['HTTP_HOST'])) {
-	$host = $_SERVER['HTTP_HOST'];
-} elseif (isset($_SERVER['SERVER_NAME'])) {
-	$host = $_SERVER['SERVER_NAME'];
-}
-if ( getSubDomain( $host ). 'test.wordpress-skeleton.local' == $host) {
+if ( getSubDomain( $host ) . ENV_DOMAIN == $host) {
 	// switch the host.
-	$host = getSubDomain( $host ). 'dev.wordpress-skeleton.local';
+	$host = getSubDomain( $host ) . PRODUCTION_DOMAIN;
 }
 
 if (is_subdomain_install()) {

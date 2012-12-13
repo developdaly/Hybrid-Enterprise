@@ -11,17 +11,6 @@ define( 'DB_USER',			'local_db_user' );
 define( 'DB_PASSWORD',		'local_db_password' );
 define( 'DB_HOST',			'localhost' ); // Probably 'localhost'
 
-define( 'ENV_DOMAIN',		'dev.example.local' );
-
-/**
- * Custom content directory
- * 
- * @see Moving wp-content folder
- * @link http://codex.wordpress.org/Editing_wp-config.php#Moving_wp-content_folder
- */
-define( 'WP_CONTENT_DIR',	dirname( __FILE__ ) . '/content' );
-define( 'WP_CONTENT_URL',	'http://' . $_SERVER['HTTP_HOST'] . '/content' );
-
 /**
  * Forces new hostsnames 
  * 
@@ -33,8 +22,10 @@ define( 'WP_CONTENT_URL',	'http://' . $_SERVER['HTTP_HOST'] . '/content' );
  * @see wp-config.php
  * @link http://codex.wordpress.org/Editing_wp-config.php
  */
-define( 'WP_HOME',			'http://dev.example.local' );
-define( 'WP_SITEURL',		'http://dev.example.local/wp' );
+define( 'ENV_DOMAIN',			'dev.example.com' );
+define( 'DOMAIN_CURRENT_SITE',	ENV_DOMAIN );
+define( 'WP_HOME',				'http://'. ENV_DOMAIN );
+define( 'WP_SITEURL',			'http://'. ENV_DOMAIN .'/wp' );
 
 /**
  * Enabled WP_DEBUG mode
