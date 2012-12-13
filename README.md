@@ -41,3 +41,11 @@ define( 'WP_SITEURL',			'http://'. ENV_DOMAIN .'/wp' );
 The point here is to use this file to override settings in `wp-config.php`. You'll want to use this in all environments other than production.
 
 The same definitions from above *must* be defined in your `local-config.php` if that file exists.
+
+## `sunrise.php`
+
+When multisite is enabled, this file is loaded. Since the domain is defined in the database `sunrise.php` overrides it with `PRODUCTION_DOMAIN` is defined, which is required.
+
+## wp-env-domain.php
+
+Replaces database instances of your domain with the current environment domain.
