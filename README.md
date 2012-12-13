@@ -15,7 +15,7 @@ One of the things I continually try to perfect is my development environment. I 
 
 This repository doesn't deal with the deployment process, but it makes it possible. Starting with this framework you can see one code-base all the way through from local to production. Let me reiterate that this includes your ENTIRE site ... WordPress and its plugins, themes, configuration, etc.
 
-## `wp-config.php`
+## wp-config.php
 
 Since part of the reason for this repository is for WordPress to reside in a subdirectory, `wp-config.php` is one directory above `wp`.
 
@@ -36,13 +36,13 @@ define( 'WP_SITEURL',			'http://'. ENV_DOMAIN .'/wp' );
 * `WP_HOME` &mdash; *optional* &mdash; This is already set in your database, but can be overridden here.
 * `WP_SITEURL` &mdash; *optional* &mdash; This is already set in your database, but can be overridden here.
 
-## `local-config.php`
+## local-config.php
 
 The point here is to use this file to override settings in `wp-config.php`. You'll want to use this in all environments other than production.
 
 The same definitions from above *must* be defined in your `local-config.php` if that file exists.
 
-## `sunrise.php`
+## sunrise.php
 
 When multisite is enabled, this file is loaded. Since the domain is defined in the database `sunrise.php` overrides it with `PRODUCTION_DOMAIN` is defined, which is required.
 
