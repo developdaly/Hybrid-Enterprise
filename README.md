@@ -5,13 +5,6 @@ Hybrid Enterprise is a clean, extensible, and ready to use framework for the sta
 * The repository structure and config files are based on (WordPress Skeleton)[https://github.com/markjaquith/WordPress-Skeleton].
 * The theme utilizes (Hybrid Core)[https://github.com/justintadlock/hybrid-core] and (Twitter Bootstrap)[https://github.com/twitter/bootstrap].
 
-## Assumptions
-
-* WordPress as a Git submodule in `/wp/`
-* Custom content directory in `/content/` (cleaner, and also because it can't be in `/wp/`)
-* `wp-config.php` in the root (because it can't be in `/wp/`)
-* All writable directories are symlinked to similarly named locations under `/shared/`.
-
 ## Theme
 
 The included theme is barebones. It simply provides a starting point. There are not styles other than what Bootstrap includes.
