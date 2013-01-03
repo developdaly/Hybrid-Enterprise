@@ -5,7 +5,7 @@
  * The 404 template is used when a reader visits an invalid URL on your site. By default, the template will 
  * display a generic message.
  *
- * @package enterprise
+ * @package Enterprise
  * @subpackage Template
  * @link http://codex.wordpress.org/Creating_an_Error_404_Page
  */
@@ -15,7 +15,7 @@
 get_header(); // Loads the header.php template. ?>
 
 	<?php do_atomic( 'before_content' ); // enterprise_before_content ?>
-
+e
 	<div id="content" class="<?php echo enterprise_get_layout( 'content' ); ?>">
 
 		<?php do_atomic( 'open_content' ); // enterprise_open_content ?>
