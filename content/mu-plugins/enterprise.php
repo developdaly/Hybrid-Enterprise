@@ -10,17 +10,22 @@
  * http://developdaly.com
  */
 
-// Add custom post meta boxes
-add_action( 'add_meta_boxes', 'enterprise_add_meta_boxes' );
+ // Disables updating core/themes/plugins if not developing locally
+add_action( 'init', 'enterprise_plugin_disable_updates' );
 
-// Save post meta boxes
-add_action( 'save_post', 'enterprise_save_postdata' );
+// Adds custom post meta boxes
+add_action( 'add_meta_boxes', 'enterprise_plugin_add_meta_boxes' );
+
+// Saves post meta boxes
+add_action( 'save_post', 'enterprise_plugin_save_postdata' );
 
 
 /**
- * Setup and add custom meta boxes.
+ * Sets up and add custom meta boxes.
+ *
+ * @since 0.1.0
  */
-function enterprise_add_meta_boxes( $postType ) {
+function enterprise_plugin_add_meta_boxes( $postType ) {
 	$types = array('post', 'page');
 	if ( in_array( $postType, $types ) ) {
 		add_meta_box( 'enterprise-css',			__( 'Custom CSS',			'enterprise'), 'enterprise_inner_css_box', $postType );
@@ -30,8 +35,10 @@ function enterprise_add_meta_boxes( $postType ) {
 
 /**
  * Creates the inside of the JavaScript meta box.
+ *
+ * @since 0.1.0
  */
-function enterprise_inner_javascript_box( $post ) {
+function enterprise_plugin_inner_javascript_box( $post ) {
 
 	// Use nonce for verification
 	wp_nonce_field( plugin_basename(__FILE__), 'enterprise_noncename' );
@@ -43,8 +50,10 @@ function enterprise_inner_javascript_box( $post ) {
 
 /**
  * Creates the inside of the CSS meta box.
+ *
+ * @since 0.1.0
  */
-function enterprise_inner_css_box( $post ) {
+function enterprise_plugin_inner_css_box( $post ) {
 
 	// Use nonce for verification
 	wp_nonce_field( plugin_basename(__FILE__), 'enterprise_noncename' );
@@ -55,9 +64,11 @@ function enterprise_inner_css_box( $post ) {
 }
 
 /**
- * Save the meta boxes.
+ * Saves the meta boxes.
+ *
+ * @since 0.1.0
  */
-function enterprise_save_postdata( $post_id ) {
+function enterprise_plugin_save_postdata( $post_id ) {
 	
 	// If auto-saving, don't want to do anything
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
@@ -83,4 +94,59 @@ function enterprise_save_postdata( $post_id ) {
 	// Update/add post meta
 	update_post_meta( $post_id, 'enterprise-javascript',	$enterprise_javascript );
 	update_post_meta( $post_id, 'enterprise-css',		$enterprise_css );
+}
+
+/**
+ * Disables core and plugin updates as well as notifications to update if
+ * not in a local environment.
+ *
+ * @since 0.1.0
+ */
+function enterprise_plugin_disable_updates() {
+
+	// Disable the disabling in local environments
+	if( WP_LOCAL_DEV == true )
+		return false;
+		
+	//Disable Theme Updates
+	# 2.8 to 3.0:
+	remove_action( 'load-themes.php', 'wp_update_themes' );
+	remove_action( 'load-update.php', 'wp_update_themes' );
+	remove_action( 'admin_init', '_maybe_update_themes' );
+	remove_action( 'wp_update_themes', 'wp_update_themes' );
+	add_filter( 'pre_transient_update_themes', create_function( '$a', "return null;" ) );
+	wp_clear_scheduled_hook( 'wp_update_themes' );
+	
+	# 3.0:
+	remove_action( 'load-update-core.php', 'wp_update_themes' );
+	add_filter( 'pre_site_transient_update_themes', create_function( '$a', "return null;" ) );
+	wp_clear_scheduled_hook( 'wp_update_themes' );
+	
+	
+	//Disable Plugin Updates
+	# 2.8 to 3.0:
+	remove_action( 'load-plugins.php', 'wp_update_plugins' );
+	remove_action( 'load-update.php', 'wp_update_plugins' );
+	remove_action( 'admin_init', '_maybe_update_plugins' );
+	remove_action( 'wp_update_plugins', 'wp_update_plugins' );
+	add_filter( 'pre_transient_update_plugins', create_function( '$a', "return null;" ) );
+	wp_clear_scheduled_hook( 'wp_update_plugins' );
+	
+	# 3.0:
+	remove_action( 'load-update-core.php', 'wp_update_plugins' );
+	add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );
+	wp_clear_scheduled_hook( 'wp_update_plugins' );
+	
+	
+	//Diasable Core Updates
+	# 2.8 to 3.0:
+	remove_action( 'wp_version_check', 'wp_version_check' );
+	remove_action( 'admin_init', '_maybe_update_core' );
+	add_filter( 'pre_transient_update_core', create_function( '$a', "return null;" ) );
+	wp_clear_scheduled_hook( 'wp_version_check' );
+	
+	# 3.0:
+	add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
+	wp_clear_scheduled_hook( 'wp_version_check' );
+
 }
