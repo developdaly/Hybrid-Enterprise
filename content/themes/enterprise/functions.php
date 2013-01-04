@@ -19,6 +19,10 @@
 require_once( trailingslashit( get_template_directory() ) . 'core/hybrid.php' );
 new Hybrid();
 
+/* Load the required plugins framework. */
+require_once( trailingslashit( get_template_directory() ) . 'library/class-tgm-plugin-activation.php' );
+require_once( trailingslashit( get_template_directory() ) . 'library/require-plugins.php' );
+
 /* Do theme setup on the 'after_setup_theme' hook. */
 add_action( 'after_setup_theme', 'enterprise_theme_setup' );
 
@@ -81,14 +85,14 @@ function enterprise_theme_setup() {
 function enterprise_enqueue_scripts() {
 
 	// Queue CSS
-	wp_enqueue_style( 'bootstrap', trailingslashit( get_stylesheet_directory_uri() ) . 'css/less/bootstrap.less', false, filemtime( trailingslashit( get_stylesheet_directory_uri() ) . 'css/less/bootstrap.less' ) );
-	wp_enqueue_style( 'responsive', trailingslashit( get_stylesheet_directory_uri() ) . 'css/less/responsive.less', false, filemtime( trailingslashit( get_stylesheet_directory_uri() ) . 'css/less/responsive.less' ) );
-	wp_enqueue_style( 'style', get_stylesheet_uri(), array( 'bootstrap' ),filemtime( trailingslashit( get_stylesheet_uri() ) ) );
+	wp_enqueue_style( 'bootstrap', trailingslashit( get_stylesheet_directory_uri() ) . 'css/less/bootstrap.less' );
+	wp_enqueue_style( 'responsive', trailingslashit( get_stylesheet_directory_uri() ) . 'css/less/responsive.less' );
+	wp_enqueue_style( 'style', get_stylesheet_uri(), array( 'bootstrap' ) );
 
 	// Queue JS
-	wp_enqueue_script( 'modernizr-respond-min', trailingslashit( get_stylesheet_directory_uri() ) . 'js/vendor/modernizr-2.6.2-respond-1.1.0.min.js', false, filemtime( trailingslashit( get_stylesheet_directory_uri() ) . 'js/vendor/modernizr-2.6.2-respond-1.1.0.min.js' ), false );
-	wp_enqueue_script( 'bootstrap-min', trailingslashit( get_stylesheet_directory_uri() ) . 'js/vendor/bootstrap.min.js', array( 'jquery' ), filemtime( trailingslashit( get_stylesheet_directory_uri() ) . 'js/vendor/bootstrap.min.js' ), true );
-	wp_enqueue_script( 'app', trailingslashit( get_stylesheet_directory_uri() ) . 'js/app.js', array( 'jquery' ), filemtime( trailingslashit( get_stylesheet_directory_uri() ) . 'js/app.js' ), true );
+	wp_enqueue_script( 'modernizr-respond-min', trailingslashit( get_stylesheet_directory_uri() ) . 'js/vendor/modernizr-2.6.2-respond-1.1.0.min.js' );
+	wp_enqueue_script( 'bootstrap-min', trailingslashit( get_stylesheet_directory_uri() ) . 'js/vendor/bootstrap.min.js', array( 'jquery' ), true );
+	wp_enqueue_script( 'app', trailingslashit( get_stylesheet_directory_uri() ) . 'js/app.js', array( 'jquery' ), true );
 
 }
 
