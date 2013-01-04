@@ -28,7 +28,6 @@ define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content' );
 
 // =========
 /* Multisite
-define( 'PRODUCTION_DOMAIN', 'example.com' );
 define( 'WP_ALLOW_MULTISITE', true );
 define( 'MULTISITE', true );
 define( 'SUBDOMAIN_INSTALL', true );
@@ -68,6 +67,12 @@ $table_prefix  = 'wp_';
 // Leave blank for American English
 // ================================
 define( 'WPLANG', '' );
+
+// =============================================================
+// Memory
+// Since these sites tend to be large, increase the memory limit
+// =============================================================
+define( 'WP_MEMORY_LIMIT', '96M' );
 
 // ===========
 // Hide errors
