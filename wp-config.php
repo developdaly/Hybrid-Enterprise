@@ -80,6 +80,12 @@ define( 'WP_MEMORY_LIMIT', '96M' );
 ini_set( 'display_errors', 0 );
 define( 'WP_DEBUG_DISPLAY', false );
 
+// ===============================================================================
+// Disallow anything that creates, deletes, or edits core, plugin, or theme files.
+// Files in uploads are excepted.
+// ===============================================================================
+define( 'DISALLOW_FILE_MODS', true );
+
 // ===================
 // Bootstrap WordPress
 // ===================

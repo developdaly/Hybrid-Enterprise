@@ -63,3 +63,8 @@ define( 'SAVEQUERIES',		true );
  * @link http://codex.wordpress.org/Debugging_in_WordPress#SCRIPT_DEBUG
  */
 define( 'SCRIPT_DEBUG',		true );
+
+/**
+ * In local environments, allow editing of themes and plugins
+ */
+define( 'DISALLOW_FILE_MODS', false );
