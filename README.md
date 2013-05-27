@@ -11,7 +11,6 @@ The included theme is barebones. It simply provides a starting point. There are 
 
 ## Plugins
 
-* *enterprise.php* adds meta boxes to `post` and `page` post types for CSS and JS input.
 * *wp-env-domain.php* filters database instances of a domain with the one defined with `ENV_DOMAIN`.
 * *register-theme-directory.php* registers the theme directory in `wp` submodule as an additional one and makes native themes functional out of the box.
 
